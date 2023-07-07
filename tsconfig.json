@@ -1,0 +1,28 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "strictNullChecks": true,
+        "esModuleInterop": true,
+        "removeComments": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "inlineSourceMap": true,
+        "noImplicitAny": false,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "stripInternal": true,
+        "pretty": true,
+        "declaration": true,
+        "rootDir": "./src",
+        "outDir": "./build",
+        "baseUrl": "./",
+        "paths": {
+            "*": ["./src/*"]
+        }
+    },
+    "include": ["src"],
+    "exclude": ["build", "node_modules"]
+}
