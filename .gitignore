@@ -2,4 +2,7 @@ node_modules
 .vscode
 build
 out
+sync-zerotier.json
+sync-zerotier.json.bak
+sync-zerotier.log
 yarn.lock

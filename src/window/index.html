@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <!-- https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+        <link href="./style/halfmoon-variables.css" rel="stylesheet" />
+        <title>sync-zerotier</title>
+    </head>
+    <body>
+        <form class="m-auto w-300 mw-full">
+            <h3>sync-zerotier</h3>
+            <div class="form-group">
+                <label for="host" class="required">主机名</label>
+                <input type="text" class="form-control" id="host" placeholder="www.abc.com" required="required" />
+            </div>
+
+            <div class="form-group">
+                <label for="zerotier-token" class="required">令牌</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    id="zerotier-token"
+                    placeholder="QOc56GDbRrT3IndlbRiiUgkiOtnFXVos"
+                    required="required"
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="zerotier-networkId" class="required">网络 ID</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="zerotier-networkId"
+                    placeholder="699b0247f73cc6c6"
+                    required="required"
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="zerotier-memberId" class="required">成员 ID</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="zerotier-memberId"
+                    placeholder="b1c1d8414c"
+                    required="required"
+                />
+            </div>
+
+            <div class="m-auto">
+                <input class="btn btn-primary btn-block" type="submit" id="sync-zerotier" value="执行检查并同步" />
+            </div>
+        </form>
+    </body>
+</html>
