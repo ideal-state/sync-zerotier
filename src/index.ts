@@ -26,21 +26,24 @@ function createWindow() {
     processMessage.init();
 }
 
-if (process.argv.includes('--k-cmd-mode')) {
-    main();
-} else {
-    // app ready 创建窗口
-    app.whenReady().then(() => {
-        createWindow();
-        app.on('activate', () => {
-            // 在 macOS 系统内, 如果没有已开启的应用窗口
-            // 点击托盘图标时通常会重新创建一个新窗口
-            if (BrowserWindow.getAllWindows().length === 0) createWindow();
-        });
-    });
+const isCmdMode = process.argv.includes('--k-cmd-mode');
 
-    app.on('window-all-closed', async () => {
+// app ready 创建窗口
+app.whenReady().then(() => {
+    if (!isCmdMode) {
+        createWindow();
+    }
+});
+app.on('window-all-closed', async () => {
+    if (!isCmdMode) {
         saveConfig();
+    }
+    if (process.platform !== 'darwin') app.quit();
+});
+
+(async () => {
+    if (isCmdMode) {
+        await main();
         if (process.platform !== 'darwin') app.quit();
-    });
-}
+    }
+})();

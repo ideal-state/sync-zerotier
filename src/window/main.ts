@@ -4,6 +4,7 @@ import netTools from '../utils/net-tools';
 import { ZerotierAPI } from '../zerotier/zerotier-api';
 import { config } from '../config/base-config';
 import { WebContents } from 'electron';
+import array from '../utils/array';
 
 function genIpv4(prefix: string, exclude?: string): string {
     let result = prefix + '.' + Math.ceil(Math.random() * 255);
@@ -36,17 +37,13 @@ async function main(webContents?: WebContents) {
         const ipv4Prefix = ipv4.substring(0, ipv4.lastIndexOf('.'));
         const network = await zerotier.getNetwork(config.zerotier.networkId);
         const member = await zerotier.getMember(config.zerotier.networkId, config.zerotier.memberId);
-        const ipRangeStatus =
-            network.config.ipAssignmentPools == undefined ||
-            !network.config.ipAssignmentPools.includes({
-                ipRangeStart: ipv4Prefix + '.1',
-                ipRangeEnd: ipv4Prefix + '.255',
-            });
-        const routeStatus =
-            network.config.routes == undefined ||
-            !network.config.routes.includes({
-                target: ipv4Prefix + '.0/24',
-            });
+        const ipRangeStatus = !array.contains(network.config.ipAssignmentPools, {
+            ipRangeStart: ipv4Prefix + '.1',
+            ipRangeEnd: ipv4Prefix + '.255',
+        });
+        const routeStatus = !array.contains(network.config.routes, {
+            target: ipv4Prefix + '.0/24',
+        });
         const memberIpStatus = member.config.ipAssignments == undefined || !member.config.ipAssignments.includes(ipv4);
         if (ipRangeStatus || routeStatus || memberIpStatus) {
             logger.log('update network...');

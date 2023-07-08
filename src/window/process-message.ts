@@ -31,6 +31,9 @@ class ProcessMessage {
             config.zerotier.memberId = memberId;
             await main(this.win.webContents);
         });
+        ipcMain.on('sync-zerotier-cmd', async () => {
+            await main(this.win.webContents);
+        });
     }
 
     // 监听窗口、app、等模块的事件
